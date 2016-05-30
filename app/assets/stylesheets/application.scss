@@ -17,15 +17,40 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "home.scss";
+@import "posts.scss";
 
 body {
-	background: #E9E9E9;
+	font-weight: 100;
 }
-
+.comment{
+	padding-bottom: 3px solid #efefef;
+}
 h1, h2, h3, h4, h5, h6 {
 	font-weight: 100;
 }
 
+.wrapper {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.clearfix:before, .clearfix:after {
+	content: " ";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+}
+.description{
+	padding:10px;
+	color: #8f8f8f;
+	width: 700px;
+}
+.post_image_description>img{
+	padding:10px 0 10px;
+}
 #pins {
   margin: 0 auto;
   width: 100%;
@@ -55,46 +80,16 @@ h1, h2, h3, h4, h5, h6 {
 	  }
 	}
 }
-
-#edit_page {
-	.current_image {
-		img {
-			display: block;
-			margin: 20px 0;
-		}
-	}
+.ability{
+	margin-top: 10px;
+	padding-bottom: 4px solid #efefef;
+	text-decoration: none;
 }
-
-#pin_show {
-	.panel-heading {
-		padding: 0;
-	}
-	.pin_image {
-		img {
-			max-width: 100%;
-			width: 100%;
-			display: block;
-			margin: 0 auto;
-		}
-	}
-	.panel-body {
-		padding: 35px;
-		h1 {
-			margin: 0 0 10px 0;
-		}
-		.description {
-			color: #868686;
-			line-height: 1.75;
-			margin: 0;
-		}
-	}
-	.panel-footer {
-		padding: 20px 35px;
-		p {
-			margin: 0;
-		}
-		.user {
-			padding-top: 8px;
-		}
+.vote_wrap{
+	padding-bottom: 10px;
+	.votes{
+		margin-bottom: 7px;
+		padding-bottom: 2px solid #c4c4c4;
+		text-decoration: none;
 	}
 }

@@ -1,12 +1,28 @@
+- if user_signed_in?
+  %p#welcome
+    Hello
+    = current_user.email
+    %br/
+    %span
+      Share your works and stuff,Do something great today
+- else
+  %p#welcome
+    Welcome To Neuron.
+    %br/
+    %span
+      It is a site where you can Share your works and images, Like this site? Become a Neuron
 #pins.transition-enabled
   - @posts.each do |post|
     .box.panel.panel-default
       = link_to (image_tag post.image.url), post
       .panel-body
         %h2= link_to post.title,post
-        %p
-          = post.comments.count
-          Comments
-        %p
-          = post.get_likes.size
-          Likes
+      .data.clearfix
+        %p.user
+          Posted by
+          = post.user.email
+        %p.buttons
+          %span.glyphicon.glyphicon-comment
+            = post.comments.count
+          %span.glyphicon.glyphicon-heart-empty
+            = post.get_likes.size

@@ -1,20 +1,29 @@
-= image_tag @post.image.url(:medium)
 %h1= @post.title
-%p= @post.description
-%p
-Submitted by -
-= @post.user.email
-%p
-  = @post.get_upvotes.size
-  Likes
-%p
-  = @post.get_downvotes.size
-  Dislikes
-%br/
-= link_to "Like",like_post_path(@post),method: :get
-= link_to "Dislike",dislike_post_path(@post),method: :get
+%p.username
+  Posted by -
+  = @post.user.email
+  = time_ago_in_words(@post.created_at)
+  .clearfix
+    .post_image_description
+      = image_tag @post.image.url(:medium)
+      .description=simple_format(@post.description)
+    .vote_wrap
+      = link_to like_post_path(@post), method: :get, class: "votes" do
+        %span.glyphicon.glyphicon-heart-empty
+        = pluralize(@post.get_upvotes.size, "Like")
+      %br/
+      = link_to dislike_post_path(@post), method: :get, class: "votes" do
+        %span.glyphicon.glyphicon-thumbs-down
+        = pluralize(@post.get_downvotes.size, "Dislike")
+    %p.comment_wrap
+      %span.glyphicon.glyphicon-comment
+      = pluralize(@post.comments.count,"Comment")
+    - if user_signed_in?
+      - if @post.user_id == current_user
+        = link_to "Edit",edit_post_path
+        = link_to "Delete",post_path(@post),method: :delete,data: {confirm: "Are You Sure?"}
 #comment
-  %h2.comment_count= pluralize(@post.comments.count,"Comment")
+  %h2
   - @comment.each do |comment|
     .comment
       %p.username= comment.user.email
@@ -22,6 +31,5 @@ Submitted by -
 
   = render'comments/form'
 
-= link_to "Back",root_path
-= link_to "Edit",edit_post_path
-= link_to "Delete",post_path(@post),method: :delete,data: {confirm: "Are You Sure?"}
+= link_to "Edit",edit_post_path,class: "ability"
+= link_to "Delete",post_path(@post),method: :delete,data: {confirm: "Are You Sure?"},class: "ability"
