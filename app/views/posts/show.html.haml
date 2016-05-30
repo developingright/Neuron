@@ -4,7 +4,15 @@
 %p
 Submitted by -
 = @post.user.email
-%br/
+
+#comment
+  %h2.comment_count= pluralize(@post.comments.count,"Comment")
+  - @comment.each do |comment|
+    .comment
+      %p.username= comment.user.email
+      %p.content= comment.content
+
+  = render'comments/form'
 
 = link_to "Back",root_path
 = link_to "Edit",edit_post_path
