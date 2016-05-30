@@ -1,0 +1,16 @@
+= simple_form_for @post ,html: {multipart: true} do |f|
+  - if @post.errors.any?
+    #errors
+      %h2
+      = pluralize(@post.errors.count,"error")
+      Prevented from saving
+      %ul
+        - @post.error.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.input :title,input_html: {class: "form-control"}
+  .form-group
+    = f.input :description,input_html: {class: "form-control"}
+
+  = f.button :submit,class: "btn btn-primary"
