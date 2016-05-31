@@ -1,6 +1,11 @@
-.col-md-6.col-md-offset-3
-  = image_tag @post.image.url(:medium)
-  %h1 Edit Post
+-if @pin.user_id == current_user.id
+  .col-md-6.col-md-offset-3
+    = image_tag @post.image.url(:medium)
+    %h1 Edit Post
 
-  = render'form'
-  = link_to "Cancel",@post
+    = render'form'
+    = link_to "Cancel",@post
+- else
+  .alert.alert-danger
+    You don't have permission to edit this!
+  = link_to "Click here to go back",root_path
