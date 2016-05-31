@@ -1,7 +1,8 @@
-%h1= @post.title
-%p.username
+%h1.post_title
+  = @post.title
+%p.created_by
   Posted by -
-  = @post.user.email
+  = @post.user.name
   = time_ago_in_words(@post.created_at)
   .clearfix
     .post_image_description
@@ -18,18 +19,16 @@
     %p.comment_wrap
       %span.glyphicon.glyphicon-comment
       = pluralize(@post.comments.count,"Comment")
-    - if user_signed_in?
-      - if @post.user_id == current_user
-        = link_to "Edit",edit_post_path
-        = link_to "Delete",post_path(@post),method: :delete,data: {confirm: "Are You Sure?"}
 #comment
   %h2
   - @comment.each do |comment|
     .comment
-      %p.username= comment.user.email
+      %p.username= comment.user.name
       %p.content= comment.content
 
   = render'comments/form'
-
-= link_to "Edit",edit_post_path,class: "ability"
-= link_to "Delete",post_path(@post),method: :delete,data: {confirm: "Are You Sure?"},class: "ability"
+  %br/
+  - if user_signed_in?
+    - if @post.user_id == current_user.id
+      = link_to "Edit",edit_post_path
+      = link_to "Delete",post_path(@post),method: :delete,data: {confirm: "Are You Sure?"}
